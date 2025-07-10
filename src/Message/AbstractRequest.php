@@ -2,6 +2,10 @@
 
 namespace Omnipay\InovioPay\Message;
 
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
+
 /**
  * Class AbstractRequest
  *
@@ -222,50 +226,41 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         return $headers;
     }
 
-    protected function createClientRequest($data, array $headers = null)
+    protected function createClientRequest(array $data, array $headers = [])
     {
-        /*$config                          = $this->httpClient->getConfig();
-        $curlOptions                     = $config->get('curl.options');
-        $curlOptions[CURLOPT_SSLVERSION] = 6;
-        $config->set('curl.options', $curlOptions);
-        $this->httpClient->setConfig($config);*/
+        $client = new Client([
+            'timeout' => 30,
+            'verify' => true, // SSL証明書検証を有効にする
+        ]);
+ 
+        try {
+            $response = $client->request($this->getHttpMethod(), $this->getEndpoint(), [
+                'headers' => $headers,
+                'form_params' => $data,
+            ]);
 
-        // don't throw exceptions for 4xx errors
-        $dispatcher = $this->httpClient->getEventDispatcher();
-        if ($dispatcher !== null) {
-            $dispatcher->addListener(
-                'request.error',
-                function ($event) {
-                    if ($event['response']->isClientError()) {
-                        $event->stopPropagation();
-                    }
-                }
-            );
+            return $response;
+        } catch (RequestException $e) {
+            if ($e->hasResponse()) {
+                return $e->getResponse();
+            }
+            throw $e;
         }
-
-        $httpRequest = $this->httpClient->createRequest(
-            $this->getHttpMethod(),
-            $this->getEndpoint(),
-            $headers,
-            $data
-        );
-
-        //$httpRequest->getCurlOptions()->set(CURLOPT_SSLVERSION, 6); // CURL_SSLVERSION_TLSv1_2 for libcurl < 7.35
-
-        return $httpRequest;
-    }
+    }    
 
     /**
      * {@inheritdoc}
      */
     public function sendData($data)
     {
-        $httpRequest  = $this->createClientRequest($data, $this->getHeaders());
-        $httpResponse = $httpRequest->send();
+        $httpResponse = $this->createClientRequest($data, $this->getHeaders());
 
-        return $this->response = new Response($this, $httpResponse->json(), $httpResponse->getStatusCode());
+        // レスポンス本文のJSONデコード
+        $body = (string) $httpResponse->getBody();
+        $json = json_decode($body, true);
+
+        return $this->response = new Response($this, $json, $httpResponse->getStatusCode());
     }
-
 
 
     /**
