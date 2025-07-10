@@ -22,6 +22,6 @@
     "psr-4": { "Omnipay\\InovioPay\\" : "src/" }
   },
   "require": {
-    "omnipay/common": "~3.0"
+    "omnipay/common": "~2.0"
   }
 }
