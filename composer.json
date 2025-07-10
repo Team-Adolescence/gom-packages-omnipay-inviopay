@@ -22,8 +22,6 @@
     "psr-4": { "Omnipay\\InovioPay\\" : "src/" }
   },
   "require": {
-    "php": ">=5.3.2",
-    "symfony/http-foundation": "^5.0 || ^6.0 || ^7.0",
     "omnipay/common": "~3.0"
   }
 }
