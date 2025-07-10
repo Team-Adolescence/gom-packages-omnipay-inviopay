@@ -231,14 +231,17 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
         $this->httpClient->setConfig($config);*/
 
         // don't throw exceptions for 4xx errors
-        $this->httpClient->getEventDispatcher()->addListener(
-            'request.error',
-            function ($event) {
-                if ($event['response']->isClientError()) {
-                    $event->stopPropagation();
+        $dispatcher = $this->httpClient->getEventDispatcher();
+        if ($dispatcher !== null) {
+            $dispatcher->addListener(
+                'request.error',
+                function ($event) {
+                    if ($event['response']->isClientError()) {
+                        $event->stopPropagation();
+                    }
                 }
-            }
-        );
+            );
+        }
 
         $httpRequest = $this->httpClient->createRequest(
             $this->getHttpMethod(),
