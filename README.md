@@ -13,13 +13,13 @@ Omnipay is installed via [Composer](http://getcomposer.org/). To install, simply
 to your `composer.json` file:
 
 ```json
-"repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/Team-Adolescence/gom-packages-omnipay-inviopay"
-    }
-],
 {
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/Team-Adolescence/gom-packages-omnipay-inviopay"
+    }
+  ],
   "require": {
     "team-adolescence/gom-packages-omnipay-inviopay": "dev-master"
   }
