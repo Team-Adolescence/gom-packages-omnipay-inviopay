@@ -1,5 +1,5 @@
 {
-  "name": "team-adolescence/omnipay-inoviopay",
+  "name": "team-adolescence/gom-packages-omnipay-inviopay",
   "type": "library",
   "description": "InovioPay driver for the Omnipay payment processing library",
   "keywords": [
@@ -10,7 +10,7 @@
     "payment",
     "inoviopay"
   ],
-  "homepage": "https://github.com/mvestil/omnipay-inoviopay",
+  "homepage": "https://github.com/Team-Adolescence/gom-packages-omnipay-inviopay",
   "license": "MIT",
   "authors": [
     {
