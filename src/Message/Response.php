@@ -58,6 +58,11 @@ class Response extends AbstractResponse implements RedirectResponseInterface
         return isset($this->data['TRANS_STATUS_NAME']) ? $this->data['TRANS_STATUS_NAME'] : null;
     }
 
+    public function getResponseCode()
+    {
+        return isset($this->data['SERVICE_RESPONSE']) ? $this->data['SERVICE_RESPONSE'] : null;
+    }
+
     /**
      * @return null|string
      */
