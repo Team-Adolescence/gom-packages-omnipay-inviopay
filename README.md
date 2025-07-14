@@ -1,7 +1,8 @@
-# omnipay-inoviopay
+# gom-packages-omnipay-inviopay
+
 Omnipay driver for InovioPay Gateway
 
-[Omnipay](https://github.com/thephpleague/omnipay) is a framework agnostic, multi-gateway payment
+[Omnipay](Team-Adolescence/gom-packages-omnipay-inviopay) is a framework agnostic, multi-gateway payment
 processing library for PHP 5.3+. This package implements PaymentWall support for Omnipay.
 
 [InovioPay](https://www.inoviopay.com/) Inovio is the revolutionary new payments gateway with seamless integration and global scalability that continuously evolves with the industry.
@@ -13,9 +14,15 @@ to your `composer.json` file:
 
 ```json
 {
-    "require": {
-        "mvestil/omnipay-inoviopay": "^1.0"
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/Team-Adolescence/gom-packages-omnipay-inviopay"
     }
+  ],
+  "require": {
+    "team-adolescence/gom-packages-omnipay-inviopay": "dev-master"
+  }
 }
 ```
 
@@ -28,17 +35,17 @@ And run composer to update your dependencies:
 
 The following transactions are provided by this package via the REST API:
 
-* Create a purchase
-* Refunding a purchase
-* Voiding a purchase
-* 3DSecure purchase
+- Create a purchase
+- Refunding a purchase
+- Voiding a purchase
+- 3DSecure purchase
 
 For general usage instructions, please see the main [Omnipay](https://github.com/thephpleague/omnipay)
-repository.  There are also examples in the class API documentation.
+repository. There are also examples in the class API documentation.
 
 ## Quirks
 
-Card and Token payment is supported. 
+Card and Token payment is supported.
 In order to create a token payment, customer id (cust_id) and payment id (pmt_id) must be passed.
 You can get these values from the response of the first purchase using Card payment.
 
