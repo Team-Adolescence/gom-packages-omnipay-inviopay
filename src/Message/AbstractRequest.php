@@ -229,7 +229,7 @@ abstract class AbstractRequest extends \Omnipay\Common\Message\AbstractRequest
     protected function createClientRequest(array $data, array $headers = [])
     {
         $client = new Client([
-            'timeout' => 30,
+            'timeout' => 90,
             'verify' => true, // SSL証明書検証を有効にする
         ]);
  
